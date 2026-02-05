@@ -33,12 +33,19 @@ public class GenerateAst {
 	writer.println();
 	writer.println("abstract class " + baseName + " {");
 
+	defineVisitor(writer, baseName, types);
+
 	for (String type: types) {
 	    String className = type.split(":")[0].trim();
 	    String fields = type.split(":")[1].trim();
 	    defineType(writer, baseName, className, fields);
 	    writer.println();
 	}
+
+	// The base abstract method - visitory pattern
+	writer.println();
+	writer.println("\tabstract <R> R accept(Visitor<R> visitor);");
+
 	
 	writer.println("}");
 	writer.close();
@@ -69,8 +76,28 @@ public class GenerateAst {
 	}
 	writer.println("\t\t}");
 
+	// Visitor pattern
+	writer.println();
+	writer.println("\t\t@Override");
+	writer.println("\t\t<R> R accept(Visitor<R> visitor) {");
+	writer.println("\t\t\treturn visitor.visit" + className + baseName + "(this);");
+	writer.println("\t\t}");
+
 	// End class definition
 	writer.println();
+	writer.println("\t}");
+    }
+
+    private static void defineVisitor(PrintWriter writer, String baseName, Collection<String> types) {
+
+	writer.println("\tinterface Visitor<R> {");
+
+	for (String type: types) {
+	    String typeName = type.split(":")[0].trim();
+	    writer.println("\t\tR visit" + typeName + baseName + "(" +
+			   typeName + " " + baseName.toLowerCase() + ");");
+	}
+
 	writer.println("\t}");
     }
 }
