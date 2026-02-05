@@ -1,3 +1,5 @@
+package dev.javarush.ci.lox;
+
 enum TokenType {
     // Single-character tokens.
     LEFT_PAREN,

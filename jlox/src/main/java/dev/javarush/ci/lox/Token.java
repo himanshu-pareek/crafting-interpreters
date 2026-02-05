@@ -1,3 +1,5 @@
+package dev.javarush.ci.lox;
+
 class Token {
     final TokenType type;
     final String lexeme;
