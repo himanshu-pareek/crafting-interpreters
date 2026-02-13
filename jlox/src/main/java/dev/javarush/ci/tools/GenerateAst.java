@@ -29,7 +29,8 @@ public class GenerateAst {
 	String path = outputDir + "/" + baseName + ".java";
 	PrintWriter writer = new PrintWriter(path, "UTF-8");
 
-	writer.println("import java.util.List");
+	writer.println("package dev.javarush.ci.lox;\n");
+	writer.println("import java.util.List;");
 	writer.println();
 	writer.println("abstract class " + baseName + " {");
 

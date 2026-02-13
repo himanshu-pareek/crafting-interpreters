@@ -1,4 +1,6 @@
-import java.util.List
+package dev.javarush.ci.lox;
+
+import java.util.List;
 
 abstract class Expr {
 	interface Visitor<R> {
